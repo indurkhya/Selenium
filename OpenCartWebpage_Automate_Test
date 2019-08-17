@@ -1,0 +1,86 @@
+package SeleniumCode;
+
+import java.io.IOException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Opencart_test {
+		
+		//Pre --condition Annotations --starting with @Before 
+		@BeforeSuite//1
+		public void setup() throws IOException {
+			System.out.println("@BeforeSuite---Setup for the chrome");
+		}
+		
+		@BeforeTest//2
+		public void launchBrowser() { 
+			System.out.println("@BeforeTest---Launch Chrome Browser");
+		}	
+		
+		@BeforeClass//3
+		public void login() {
+			System.out.println("@BeforeClass---Login");
+		}
+		
+		@BeforeMethod//4
+		public void url() {
+			System.out.println("@BeforeMethod---Enter URL");
+		}
+
+		//Test cases for the code ---starting with @Test
+		@Test(priority=2)
+		public void First_Test() {
+			
+			System.out.println("@Test//1---Start with First case");
+			driver.manage().window().maximize();
+			driver.get("https://demo.opencart.com");	
+			driver.findElement(By.xpath("//a[@title='My Account']")).click();
+			driver.get("https://demo.opencart.com/index.php?route=account/login");
+			driver.findElement(By.xpath("//input[@name='email']")).sendKeys("sample.selenium@gmail.com");
+			driver.findElement(By.xpath("//input[@name=\"password\"]")).sendKeys("Sample@123");
+			driver.findElement(By.xpath("//input[@type=\"submit\" and @value='Login']")).click();
+			driver.findElement(By.xpath("//input[@name=\"search\"]")).sendKeys("iphone");
+			driver.findElement(By.xpath("//button[@class=\"btn btn-default btn-lg\"]")).click();
+			driver.findElement(By.xpath("//button[@onclick=\"cart.add('40', '1');\"]")).click();
+//	 		driver.findElement(By.xpath("//*[@id='cart-total']/i")).click();
+//			driver.findElement(By.xpath("//button[@title='Remove']")).click();
+			driver.findElement(By.xpath("//a[@title=\"My Account\"]")).click();
+			driver.get("https://demo.opencart.com/index.php?route=account/logout");
+			driver.findElement(By.xpath("//a[@class='btn btn-primary']")).click();
+		}
+		
+		@Test(priority=1)
+		public void Second_Test() {
+			System.out.println("@Test//2---Second case start");
+		}
+		
+		//Post --condition Annotations ---starting with @After
+		@AfterMethod//6
+		public void logout() {
+			System.out.println("@AfterMethod---Logout");
+		}
+		
+		@AfterTest//7
+		public void clearcookies() {
+			System.out.println("@AfterTest---Clear all cookies");
+		}
+		
+		@AfterClass//8
+		public void closebrowser() {
+			System.out.println("@AfterClass---Close Browser");
+			driver.close();
+		}
+		
+		WebDriver driver=new ChromeDriver();
+
+
+	}
