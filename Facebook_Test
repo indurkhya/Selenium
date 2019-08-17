@@ -1,0 +1,110 @@
+package seleniumCode;
+
+import java.io.IOException;
+import java.sql.Driver;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Facebook_test {
+
+		// Pre --condition Annotations --starting with @Before 
+		@BeforeSuite//1
+		public void setup() throws IOException {
+			System.out.println("@BeforeSuite---Setup for the chrome");
+		}
+		
+		@BeforeTest//2
+		public void launchBrowser() { 
+			System.out.println("@BeforeTest---Launch Chrome Browser");
+		}	
+		
+		@BeforeClass//3
+		public void login() {
+			System.out.println("@BeforeClass---Login");
+		}
+		
+		@BeforeMethod//4
+		public void url() {
+			System.out.println("@BeforeMethod---Enter URL");
+		}
+
+		//Test cases for the code ---starting with @Test
+		@Test//1 
+		public void First_Test() {
+			
+			System.out.println("@Test//1---Start with First case");
+			WebDriver driver=new ChromeDriver();
+			driver.get("https://www.facebook.com");
+			driver.manage().window().maximize();
+			
+	// Below is commented bcz it is just a login code
+//			driver.findElement(By.xpath("//input[@type='email']")).sendKeys("5646655458");
+//			driver.findElement(By.xpath("//input[@type='password']")).sendKeys("india@123");
+//			driver.findElement(By.xpath("//input[@value='Log In']")).click();
+			
+	// Below code is creating the new Facebook account.
+			
+			driver.findElement(By.xpath("//input[@name='firstname']")).sendKeys("sudhashu");
+			driver.findElement(By.xpath("//input[@name='lastname']")).sendKeys("jain");
+			driver.findElement(By.xpath("//input[@name='reg_email__']")).sendKeys("1554578468");
+			driver.findElement(By.xpath("//input[@name='reg_passwd__']")).sendKeys("somil@123");
+			driver.findElement(By.xpath("//select[@name='birthday_day']")).sendKeys("04");
+			driver.findElement(By.xpath("//select[@name='birthday_month']")).sendKeys("07");
+			driver.findElement(By.xpath("//select[@name='birthday_year']")).sendKeys("1994");
+			driver.findElement(By.xpath("//input[@type='radio' and @value=\"2\"]")).click();
+			driver.findElement(By.xpath("//button[@name='websubmit']")).click();
+//			Alert alert = driver.switchTo().alert();
+//			alert.accept();
+//			driver.get("https://www.facebook.com/confirmemail.php?next=https%3A%2F%2Fwww.facebook.com%2F&rd&__req=7");
+//			driver.findElement(By.id("\"userNavigationLabe"));
+			driver.findElement(By.xpath("//span[@class='_1vp5 f_click']")).click();
+		//	driver.findElement(By.xpath("//*[@id=\"userNavigationLabel\"]")).click();
+			driver.findElement(By.xpath("//form[@action =\"https://www.facebook.com/login/device-based/regular/logout/?button_name=logout&button_location=settings\"]")).click();
+			driver.findElement(By.xpath("//button[@class=\"_42ft _4jy0 layerConfirm uiOverlayButton _4jy3 _4jy1 selected _51sy\"]")).click();
+		
+		}
+		
+		@Test//2
+		public void Second_Test() {
+			System.out.println("@Test---Start with Second case");
+			
+		}
+		
+		//Post --condition Annotations ---starting with @After
+		@AfterMethod//6
+		public void logout() {
+			System.out.println("@AfterMethod---Logout");
+		}
+		
+		@AfterTest//7
+		public void clearcookies() {
+			System.out.println("@AfterTest---Clear all cookies");
+		}
+		
+		@AfterClass//8
+		public void closebrowser() {
+			System.out.println("@AfterClass---Close Browser");
+			driver.close();
+		}	
+
+//		@AfterSuite//9
+//		public void generateReport() {
+//			System.out.println("@AfterSuite---Generate Report");
+//		}
+	}
+
